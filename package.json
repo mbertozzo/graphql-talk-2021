@@ -6,9 +6,9 @@
     "build:client": "cd client && react-scripts build",
     "test:client": "cd client && react-scripts test",
     "eject:client": "cd client && react-scripts eject",
-    "build:server": "babel server/src -d server/dist",
-    "start:server": "npm run build:server && node server/dist",
-    "restart:server": "rimraf server/dist && npm run start:server",
+    "build:server": "babel server/src -d server/build",
+    "start:server": "npm run build:server && node server/build",
+    "restart:server": "rimraf server/build && npm run start:server",
     "dev:server": "nodemon --exec npm run restart:server",
     "start": "concurrently --kill-others-on-fail \"npm run dev:server\" \"npm run start:client\""
   },
