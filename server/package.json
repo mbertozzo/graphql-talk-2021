@@ -1,0 +1,15 @@
+{
+  "name": "graphql-server",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node index.js",
+    "start:dev": "./node_modules/nodemon/bin/nodemon.js index.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.7"
+  }
+}
