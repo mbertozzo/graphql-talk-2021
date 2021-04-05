@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './app.css';
+import './app.scss';
 import GraphQL from './graphql.png';
 
 export default class App extends Component {

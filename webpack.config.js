@@ -26,13 +26,26 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
+        test: /\.module\.s(a|c)ss$/,
+        use: [
+          'style-loader',
+          { loader: 'css-loader', options: { modules: true } },
+          'sass-loader',
+        ],
+      },
+      {
+        test: /\.s(a|c)ss$/,
+        exclude: /\.module.(s(a|c)ss)$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+      {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,
         loader: 'url-loader?limit=100000',
       },
     ],
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx'],
+    extensions: ['*', '.js', '.jsx', '.scss'],
   },
   devServer: {
     port: 3000,
