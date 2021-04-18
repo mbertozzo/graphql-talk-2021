@@ -6,6 +6,8 @@ const os = require('os');
 const typeDefs = require('./gql/schema');
 const resolvers = require('./gql/resolvers');
 
+const db = require('./models');
+
 const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
@@ -25,8 +27,17 @@ app.get('/api/getUsername', (req, res) =>
   res.send({ username: os.userInfo().username }),
 );
 
-app.listen(process.env.PORT || 8080, () =>
-  console.log(
-    `🚀 Server is running at http://localhost:${process.env.PORT || 8080}`,
-  ),
-);
+db.sequelize
+  .sync()
+  .then(() => {
+    app.listen(process.env.PORT || 8080, () =>
+      console.log(
+        `🚀 Server is running at http://localhost:${process.env.PORT || 8080}`,
+      ),
+    );
+  })
+  .catch((e) => {
+    console.log(
+      `\n\n🔴 An error occurred while connecting to the database: ${e.message}`,
+    );
+  });
