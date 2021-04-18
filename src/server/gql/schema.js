@@ -31,12 +31,21 @@ const typeDefs = gql`
     id: ID!
     title: String!
     description: String
+    categoryId: ID!
+    category: Category!
+  }
+  type Category {
+    id: ID!
+    name: String!
+    description: String!
+    tasks: [Task]
   }
   type Query {
     getUsername: String
     users: [User]
     user(id: ID!): User
     tasks: [Task]
+    categories: [Category]
   }
 `;
 

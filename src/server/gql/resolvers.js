@@ -4,6 +4,12 @@ const os = require('os');
 const users = require('../users');
 
 const resolvers = {
+  Category: {
+    tasks: (parent, args, context, info) => parent.getTasks(),
+  },
+  Task: {
+    category: (parent, args, context, info) => parent.getCategory(),
+  },
   Query: {
     getUsername: () => os.userInfo().username,
     users: () => users,
@@ -23,6 +29,7 @@ const resolvers = {
       return users.find((u) => u.id === parseInt(id, 10));
     },
     tasks: (parent, args, { db }, info) => db.task.findAll(),
+    categories: (parent, args, { db }, info) => db.category.findAll(),
   },
 };
 

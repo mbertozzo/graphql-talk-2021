@@ -38,7 +38,7 @@ db.sequelize
     // populate category table with dummy data
     db.category.bulkCreate(
       times(10, () => ({
-        name: faker.lorem.sentence(),
+        name: faker.random.word(),
         description: faker.lorem.paragraph(),
         category: random(1, 10),
       })),
