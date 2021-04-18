@@ -22,6 +22,7 @@ const resolvers = {
 
       return users.find((u) => u.id === parseInt(id, 10));
     },
+    tasks: (parent, args, { db }, info) => db.task.findAll(),
   },
 };
 

@@ -15,6 +15,7 @@ const db = require('./models');
 const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
+  context: { db },
   // formatError: error => {
   //   console.log(error);
   //   return new Error('Internal server error');

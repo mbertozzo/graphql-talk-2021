@@ -27,10 +27,16 @@ const typeDefs = gql`
     website: String!
     company: Company
   }
+  type Task {
+    id: ID!
+    title: String!
+    description: String
+  }
   type Query {
     getUsername: String
     users: [User]
     user(id: ID!): User
+    tasks: [Task]
   }
 `;
 
