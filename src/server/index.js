@@ -38,6 +38,6 @@ db.sequelize
   })
   .catch((e) => {
     console.log(
-      `\n\n🔴 An error occurred while connecting to the database: ${e.message}`,
+      `\n\n🔴 An error occurred while connecting to the database: ${e.message}\n`,
     );
   });
