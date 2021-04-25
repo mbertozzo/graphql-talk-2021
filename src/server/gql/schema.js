@@ -38,6 +38,7 @@ const typeDefs = gql`
     id: ID!
     title: String!
     description: String!
+    position: Int!
     tasks: [Task]
   }
   type Query {

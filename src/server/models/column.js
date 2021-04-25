@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       description: DataTypes.TEXT,
+      position: DataTypes.INTEGER,
     },
     {
       freezeTableName: true,
