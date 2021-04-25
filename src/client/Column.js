@@ -24,12 +24,17 @@ const TaskList = styled.div`
 `;
 
 const Column = (props) => {
+  console.log('DISABLED', props.isDropDisabled);
   return (
     <Draggable draggableId={`column-${props.column.id}`} index={props.index}>
       {(provided) => (
         <Container ref={provided.innerRef} {...provided.draggableProps}>
           <Title {...provided.dragHandleProps}>{props.column.title}</Title>
-          <Droppable droppableId={props.column.id} type="task">
+          <Droppable
+            droppableId={props.column.id}
+            isDropDisabled={props.isDropDisabled}
+            type="task"
+          >
             {(provided, snapshot) => (
               <TaskList
                 ref={provided.innerRef}

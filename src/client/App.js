@@ -24,24 +24,39 @@ const GET_DATA = gql`
 
 const App = (props) => {
   const { loading, error, data } = useQuery(GET_DATA);
+  const [homeIndex, setHomeIndex] = useState(null);
 
-  const onDragEnd = (result) => {};
+  const onDragStart = (start) => {
+    const homeColumn = data.columns.find(
+      (c) => c.id === start.source.droppableId,
+    );
+
+    setHomeIndex(Number.parseInt(homeColumn.id, 10));
+  };
+
+  const onDragEnd = (result) => {
+    setHomeIndex(null);
+    console.log('RESULT', result);
+  };
 
   if (loading) return <p>Loading ...</p>;
   if (error) return <p>Error</p>;
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
+    <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
       <Droppable droppableId="all-columns" direction="horizontal" type="column">
         {(provided) => (
           <Container {...provided.droppableProps} ref={provided.innerRef}>
-            {data.columns.map((column, index) => {
+            {data.columns.map((column, idx) => {
+              const index = idx + 1;
+
               return (
                 <Column
                   key={column.id}
                   column={column}
                   tasks={column.tasks}
                   index={index}
+                  isDropDisabled={index === homeIndex}
                 />
               );
             })}
