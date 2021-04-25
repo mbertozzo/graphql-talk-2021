@@ -48,17 +48,19 @@ db.sequelize
         console.log(
           `\n\n🔴 An error occurred while populating column table: ${e.message}\n`,
         ),
-      );
-
-    // populate task table with dummy data
-    db.task
-      .bulkCreate(
-        times(10, () => ({
-          title: faker.lorem.sentence(),
-          description: faker.lorem.paragraph(),
-          columnId: random(1, 4), // error simulation: max value for random exceed the column number
-        })),
       )
+      .then(() => {
+        // populate task table with dummy data
+        db.task.bulkCreate(
+          times(10, (n) => ({
+            title: `[${n + 1}] ${faker.lorem.sentence()}`,
+            description: faker.lorem.paragraph(),
+            position: n + 1,
+            columnId: 1,
+            //columnId: random(1, 4), // error simulation: max value for random exceed the column number
+          })),
+        );
+      })
       .catch((e) =>
         console.log(
           `\n\n🔴 An error occurred while populating task table: ${e.message}\n`,

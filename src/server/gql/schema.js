@@ -41,12 +41,18 @@ const typeDefs = gql`
     position: Int!
     tasks: [Task]
   }
+  type Test {
+    name: String
+  }
   type Query {
     getUsername: String
     users: [User]
     user(id: ID!): User
     tasks: [Task]
     columns: [Column]
+  }
+  type Mutation {
+    changePos(type: String!, id: ID!, oldPos: Int!, newPos: Int!): Test
   }
 `;
 
