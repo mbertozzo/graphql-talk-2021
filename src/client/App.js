@@ -8,39 +8,39 @@ const Container = styled.div`
   display: flex;
 `;
 
-const GET_COLUMNS = gql`
+const GET_DATA = gql`
   query {
     columns {
       id
       title
       position
+      tasks {
+        id
+        title
+      }
     }
   }
 `;
 
 const App = (props) => {
-  const {
-    loading: columnLoading,
-    error: columnError,
-    data: columnData,
-  } = useQuery(GET_COLUMNS);
+  const { loading, error, data } = useQuery(GET_DATA);
 
   const onDragEnd = (result) => {};
 
-  if (columnLoading) return <p>Loading ...</p>;
-  if (columnError) return <p>Error</p>;
+  if (loading) return <p>Loading ...</p>;
+  if (error) return <p>Error</p>;
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="all-columns" direction="horizontal" type="column">
         {(provided) => (
           <Container {...provided.droppableProps} ref={provided.innerRef}>
-            {columnData.columns.map((column, index) => {
+            {data.columns.map((column, index) => {
               return (
                 <Column
                   key={column.id}
                   column={column}
-                  tasks={[]}
+                  tasks={column.tasks}
                   index={index}
                 />
               );

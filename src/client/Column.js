@@ -25,7 +25,7 @@ const TaskList = styled.div`
 
 const Column = (props) => {
   return (
-    <Draggable draggableId={props.column.id} index={props.index}>
+    <Draggable draggableId={`column-${props.column.id}`} index={props.index}>
       {(provided) => (
         <Container ref={provided.innerRef} {...provided.draggableProps}>
           <Title {...provided.dragHandleProps}>{props.column.title}</Title>
