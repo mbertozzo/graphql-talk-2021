@@ -4,11 +4,11 @@ const os = require('os');
 const users = require('../users');
 
 const resolvers = {
-  Category: {
+  Column: {
     tasks: (parent, args, context, info) => parent.getTasks(),
   },
   Task: {
-    category: (parent, args, context, info) => parent.getCategory(),
+    column: (parent, args, context, info) => parent.getColumn(),
   },
   Query: {
     getUsername: () => os.userInfo().username,
@@ -29,7 +29,7 @@ const resolvers = {
       return users.find((u) => u.id === parseInt(id, 10));
     },
     tasks: (parent, args, { db }, info) => db.task.findAll(),
-    categories: (parent, args, { db }, info) => db.category.findAll(),
+    columns: (parent, args, { db }, info) => db.column.findAll(),
   },
 };
 

@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Task.associate = (models) => {
-    Task.belongsTo(models.category);
+    Task.belongsTo(models.column);
   };
 
   return Task;

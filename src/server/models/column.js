@@ -1,13 +1,13 @@
 module.exports = (sequelize, DataTypes) => {
-  const Category = sequelize.define(
-    'category',
+  const Column = sequelize.define(
+    'column',
     {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      name: {
+      title: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -18,9 +18,9 @@ module.exports = (sequelize, DataTypes) => {
     },
   );
 
-  Category.associate = (models) => {
-    Category.hasMany(models.task);
+  Column.associate = (models) => {
+    Column.hasMany(models.task);
   };
 
-  return Category;
+  return Column;
 };

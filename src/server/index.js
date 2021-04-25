@@ -36,26 +36,39 @@ db.sequelize
   .sync({ force: true })
   .then(() => {
     // populate category table with dummy data
-    db.category.bulkCreate(
-      times(10, () => ({
-        name: faker.random.word(),
-        description: faker.lorem.paragraph(),
-        category: random(1, 10),
-      })),
-    );
+    db.column
+      .bulkCreate(
+        times(4, () => ({
+          title: faker.random.word(),
+          description: faker.lorem.paragraph(),
+        })),
+      )
+      .catch((e) =>
+        console.log(
+          `\n\n🔴 An error occurred while populating column table: ${e.message}\n`,
+        ),
+      );
 
     // populate task table with dummy data
-    db.task.bulkCreate(
-      times(10, () => ({
-        title: faker.lorem.sentence(),
-        description: faker.lorem.paragraph(),
-        categoryId: random(1, 10),
-      })),
-    );
+    db.task
+      .bulkCreate(
+        times(10, () => ({
+          title: faker.lorem.sentence(),
+          description: faker.lorem.paragraph(),
+          columnId: random(1, 4), // error simulation: max value for random exceed the column number
+        })),
+      )
+      .catch((e) =>
+        console.log(
+          `\n\n🔴 An error occurred while populating task table: ${e.message}\n`,
+        ),
+      );
 
     app.listen(process.env.PORT || 8080, () =>
       console.log(
-        `🚀 Server is running at http://localhost:${process.env.PORT || 8080}`,
+        `\n\n🚀 Server is running at http://localhost:${
+          process.env.PORT || 8080
+        }\n`,
       ),
     );
   })

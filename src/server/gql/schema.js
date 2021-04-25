@@ -31,12 +31,12 @@ const typeDefs = gql`
     id: ID!
     title: String!
     description: String
-    categoryId: ID!
-    category: Category!
+    columnId: ID!
+    column: Column!
   }
-  type Category {
+  type Column {
     id: ID!
-    name: String!
+    title: String!
     description: String!
     tasks: [Task]
   }
@@ -45,7 +45,7 @@ const typeDefs = gql`
     users: [User]
     user(id: ID!): User
     tasks: [Task]
-    categories: [Category]
+    columns: [Column]
   }
 `;
 
