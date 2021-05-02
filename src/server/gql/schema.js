@@ -52,7 +52,14 @@ const typeDefs = gql`
     columns: [Column]
   }
   type Mutation {
-    changePos(type: String!, id: ID!, oldPos: Int!, newPos: Int!): Test
+    changePos(
+      type: String!
+      id: ID!
+      oldPos: Int
+      newPos: Int
+      oldCol: Int
+      newCol: Int
+    ): Test
   }
 `;
 

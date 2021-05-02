@@ -41,7 +41,8 @@ db.sequelize
         times(4, (n) => ({
           title: faker.random.word(),
           description: faker.lorem.paragraph(),
-          position: n,
+          position: n + 1,
+          taskId: n === 0 ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] : [],
         })),
       )
       .catch((e) =>

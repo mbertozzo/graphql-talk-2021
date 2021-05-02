@@ -13,6 +13,15 @@ module.exports = (sequelize, DataTypes) => {
       },
       description: DataTypes.TEXT,
       position: DataTypes.INTEGER,
+      taskId: {
+        type: DataTypes.STRING,
+        get() {
+          return this.getDataValue('taskId').split(';');
+        },
+        set(val) {
+          this.setDataValue('taskId', val.join(';'));
+        },
+      },
     },
     {
       freezeTableName: true,

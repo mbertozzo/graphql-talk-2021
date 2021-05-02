@@ -3,10 +3,11 @@ const os = require('os');
 
 const users = require('../users');
 
+const { taskMoveUp, taskMoveDown } = require('./resolvers/index');
+
 const resolvers = {
   Column: {
-    tasks: (parent, args, context, info) =>
-      parent.getTasks({ order: [['position', 'ASC']] }),
+    tasks: (parent, args, context, info) => parent.getTasks(),
   },
   Task: {
     column: (parent, args, context, info) => parent.getColumn(),
@@ -33,40 +34,42 @@ const resolvers = {
     columns: (parent, args, { db }, info) => db.column.findAll(),
   },
   Mutation: {
-    changePos: (parent, { type, id, oldPos, newPos }, { db }, info) => {
-      if (oldPos < newPos) {
-        /* Move down */
-        db.task
-          .decrement('position', {
-            by: 1,
-            where: {
-              id: { [db.Sequelize.Op.gt]: 0 },
-              position: {
-                [db.Sequelize.Op.lte]: newPos,
-                [db.Sequelize.Op.gte]: oldPos,
-              },
-            },
-          })
-          .then(() => {
-            db.task.update({ position: newPos }, { where: { id: id } });
-          });
-      } else {
-        /* Move up */
-        db.task
-          .increment('position', {
-            by: 1,
-            where: {
-              id: { [db.Sequelize.Op.gt]: 0 },
-              position: {
-                [db.Sequelize.Op.lt]: oldPos,
-                [db.Sequelize.Op.gte]: newPos,
-              },
-            },
-          })
-          .then(() => {
-            db.task.update({ position: newPos }, { where: { id: id } });
-          });
+    changePos: (parent, args, { db }, info) => {
+      const { type, id, oldPos, newPos, oldCol, newCol } = args;
+
+      if (oldCol === newCol) {
+        const oldColTasks = db.column.findAll({
+          where: { id: oldCol },
+        });
+
+        const newColTasks = db.column.findAll({
+          attributes: ['taskId'],
+          where: { id: newCol },
+        });
+
+        return Promise.all([oldColTasks, newColTasks]).then((responses) =>
+          console.log('ALOHA', responses[0].taskId),
+        );
       }
+
+      // if (oldPos < newPos) {
+      //   /* Move down */
+      // } else {
+      //   /* Move up */
+      // }
+
+      // if (oldCol !== newCol) {
+      //   db.task.update(
+      //     {
+      //       columnId: newCol,
+      //     },
+      //     {
+      //       where: {
+      //         id: id,
+      //       },
+      //     },
+      //   );
+      // }
 
       return 'ALOHA';
     },
